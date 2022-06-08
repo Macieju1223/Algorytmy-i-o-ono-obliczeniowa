@@ -120,16 +120,19 @@ class Algorytmy:
 
     @staticmethod
     def read_csv():
+        """method opens csv file"""
         path = 'csv_files/housing-sales-borough.csv'
         file = pd.read_csv(path)
         file = pd.DataFrame(file)
         return file
 
     def show_areas(self):
+        """method prints all avalible areas in csv file"""
         file = self.read_csv()
         print(file['Area'])
 
     def sales_changes(self, area='Lambeth'):
+        """method creates 2 charts with changes in sales of specific area"""
         file = self.read_csv()
         file = file.loc[:, file.columns != 'Code']
         file = file.set_index('Area')
@@ -151,6 +154,7 @@ class Algorytmy:
         plt.show()
 
     def areas_compare(self, areas=['Lambeth', 'Lewisham'], year='1995'):
+        """method compares two areas and creates charts"""
         file = self.read_csv()
         all_sales: dict = {}
         file = file.loc[:, file.columns != 'Code']
