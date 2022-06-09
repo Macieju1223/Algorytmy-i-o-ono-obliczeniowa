@@ -1,3 +1,5 @@
+import random
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -154,7 +156,7 @@ class Algorytmy:
         plt.show()
 
     def areas_compare(self, areas=['Lambeth', 'Lewisham'], year='1995'):
-        """method compares two areas and creates charts"""
+        """method compares two areas and creates chartspyt"""
         file = self.read_csv()
         all_sales: dict = {}
         file = file.loc[:, file.columns != 'Code']
@@ -178,6 +180,83 @@ class Algorytmy:
         plt.show()
 
 
+    def because_why_not(self):
+        """method creates charts"""
+        file = self.read_csv()
+        file = file.loc[:, file.columns != 'Code']
+        array = np.array(file)
+
+        random_area = random.choices(array)
+        figure, axis = plt.subplots(3, 4)
+        axis[0][0].barh(random_area[0][1:], random_area[0][1:], color='red')
+        axis[0][0].axis("off")
+        axis[0][0].set_title(f'{random_area[0][:1]}')
+
+        random_area = random.choices(array)
+        axis[0][1].hist(random_area[0][1:])
+        axis[0][1].axis("off")
+        axis[0][1].set_title(f'{random_area[0][:1]}')
+
+        random_area = random.choices(array)
+        axis[0][2].eventplot(random_area[0][1:])
+        axis[0][2].axis("off")
+        axis[0][2].set_title(f'{random_area[0][:1]}')
+
+        random_area = random.choices(array)
+        axis[0][3].hist2d(random_area[0][1:], random_area[0][1:])
+        axis[0][3].axis("off")
+        axis[0][3].set_title(f'{random_area[0][:1]}')
+
+        random_area = random.choices(array)
+        axis[1][0].plot(random_area[0][1:])
+        axis[1][0].axis("off")
+        axis[1][0].set_title(f'{random_area[0][:1]}')
+
+        random_area = random.choices(array)
+        axis[1][1].pie(random_area[0][1:])
+        axis[1][1].axis("off")
+        axis[1][1].set_title(f'{random_area[0][:1]}')
+
+        random_area = random.choices(array)
+        axis[1][2].stem(random_area[0][1:], random_area[0][1:])
+        axis[1][2].axis("off")
+        axis[1][2].set_title(f'{random_area[0][:1]}')
+
+        x = np.random.uniform(-5, 5, 126)
+        y = np.random.uniform(-5, 5, 126)
+        axis[1][3].triplot(x, y)
+        axis[1][3].axis("off")
+        axis[1][3].set_title('Triplot sample')
+
+        random_area = random.choices(array)
+        axis[2][0].step(random_area[0][1:], random_area[0][1:])
+        axis[2][0].axis("off")
+        axis[2][0].set_title(f'{random_area[0][:1]}')
+
+        x = np.random.randn(5000)
+        y = 1.2 * x + np.random.randn(5000) / 3
+        axis[2][1].hexbin(x, y, gridsize=40)
+        axis[2][1].axis("off")
+        axis[2][1].set_title('Hexbin sample')
+
+        x = np.random.uniform(-3, 3, 256)
+        y = np.random.uniform(-3, 3, 256)
+        z = (1 - x / 2 + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
+        axis[2][2].plot(x, y, 'o', markersize=0.5, color='pink')
+        axis[2][2].tripcolor(x, y, z)
+        axis[2][2].axis("off")
+        axis[2][2].set_title('tripcolor sample')
+
+        X, Y = np.meshgrid(np.linspace(-3, 3, 256), np.linspace(-3, 3, 256))
+        Z = (1 - X / 2 + X ** 5 + Y ** 3) * np.exp(-X ** 2 - Y ** 2)
+        levels = np.linspace(np.min(Z), np.max(Z), 7)
+        axis[2][3].contour(X, Y, Z, levels=levels)
+        axis[2][3].axis("off")
+        axis[2][3].set_title('Contour sample')
+
+        plt.show()
+
+
 if __name__ == '__main__':
     pd.set_option("display.precision", 2)
     # initiate = Weather()
@@ -193,7 +272,8 @@ if __name__ == '__main__':
     # initiate.read_files()
 
     initiate = Algorytmy()
-    initiate.show_areas()
-    initiate.areas_compare() #---- you can specify which areas you wanna compare in wich year
-    initiate.sales_changes() # --- change area by giving area name
+    # initiate.show_areas()
+    # initiate.areas_compare() #---- you can specify which areas you wanna compare in wich year
+    # initiate.sales_changes() # --- change area by giving area name
+    initiate.because_why_not()
 
