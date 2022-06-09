@@ -143,16 +143,16 @@ class Algorithms:
         file = file.loc[:, file.columns != 'Code']
         file = file.set_index('Area')
         numpy_array = np.array(file.loc[area])
+        labels = [x[6:] for x in list(file.columns)]
 
         figure, axis = plt.subplots(2)
-        axis[0].plot(numpy_array, numpy_array,
+        axis[0].plot(numpy_array, labels,
                      marker='o', mfc='b', mec='b', color='r', linewidth=0.4
                      )
         axis[0].set_title(f'Sale changes for {area} since 1995 - 2014')
 
         percent = numpy_array * 100 / sum(numpy_array)
         percent = np.round(percent, 2)
-        labels = [x[6:] for x in list(file.columns)]
 
         colors = plt.get_cmap('Blues')(np.linspace(0.2, 0.7, len(numpy_array)))
         axis[1].pie(percent,
@@ -277,7 +277,7 @@ if __name__ == '__main__':
     initiate = Algorithms()
 
     areas = initiate.show_areas()
-    initiate.areas_compare([areas[4], areas[9]], '2014')  #---- you can specify which areas you wanna compare in wich year
+    # initiate.areas_compare([areas[4], areas[9]], '2014')  # --- you can specify which areas you want compare in year
     initiate.sales_changes(areas[-11])  # --- change area by giving area name
-    initiate.because_why_not()  # --- try it out
+    # initiate.because_why_not()  # --- try it out
 
