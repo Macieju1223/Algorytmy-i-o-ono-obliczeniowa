@@ -179,7 +179,6 @@ class Algorytmy:
                     wedgeprops={'linewidth': 1, 'edgecolor': 'white'})
         plt.show()
 
-
     def because_why_not(self):
         """method creates charts"""
         file = self.read_csv()
