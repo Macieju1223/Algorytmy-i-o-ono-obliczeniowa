@@ -69,7 +69,7 @@ class Weather:
         plt.show()
 
 
-class Language_communication:
+class LanguageCommunication:
 
     @staticmethod
     def test():
@@ -84,7 +84,7 @@ class Language_communication:
 
     @staticmethod
     def test_sentiments():
-        """clasyfies sentences to negattive or possitive"""
+        """assign sentences to negattive or possitive"""
         text = 'Today is a beautiful day. Tomorrow looks like bad weather.'
         blob = TextBlob(text, analyzer=NaiveBayesAnalyzer())
         print('------------------')
@@ -93,13 +93,14 @@ class Language_communication:
 
     @staticmethod
     def language_detecting():
+        """it suposed to check language, but it's not work anymore"""
         text = 'Today is a beautiful day. Tomorrow looks like bad weather.'
         blob = TextBlob(text, analyzer=BaseSentimentAnalyzer)
         print('------------')
 
     @staticmethod
     def word_function():
-        """checking words in txtx"""
+        """checking words in txt"""
         index = Word('index')
         print('---------')
         print(index.pluralize())
@@ -118,7 +119,7 @@ class Language_communication:
         print(blob.word_counts['valley'])
 
 
-class Algorytmy:
+class Algorithms:
 
     @staticmethod
     def read_csv():
@@ -129,12 +130,15 @@ class Algorytmy:
         return file
 
     def show_areas(self):
-        """method prints all avalible areas in csv file"""
+        """method prints all available areas in csv file"""
         file = self.read_csv()
-        print(file['Area'])
+        areas = [x for x in file['Area']]
+        for num in range(len(areas)):
+            print(num, ' : ', areas[num])
+        return areas
 
     def sales_changes(self, area='Lambeth'):
-        """method creates 2 charts with changes in sales of specific area"""
+        """method creates 2 charts with changes in sales since 1995 to 2014 of specific area"""
         file = self.read_csv()
         file = file.loc[:, file.columns != 'Code']
         file = file.set_index('Area')
@@ -156,7 +160,7 @@ class Algorytmy:
         plt.show()
 
     def areas_compare(self, areas=['Lambeth', 'Lewisham'], year='1995'):
-        """method compares two areas and creates chartspyt"""
+        """method compares two areas and creates charts"""
         file = self.read_csv()
         all_sales: dict = {}
         file = file.loc[:, file.columns != 'Code']
@@ -180,7 +184,7 @@ class Algorytmy:
         plt.show()
 
     def because_why_not(self):
-        """method creates charts"""
+        """it creates charts, lots of random charts"""
         file = self.read_csv()
         file = file.loc[:, file.columns != 'Code']
         array = np.array(file)
@@ -263,16 +267,17 @@ if __name__ == '__main__':
     # initiate.describe_to_file()
     # initiate.multiple_charts()
 
-    # initiate = Language_communication()
+    # initiate = LanguageCommunication()
     # initiate.test()
     # initiate.test_sentiments()
     # initiate.language_detecting()
     # initiate.word_function()
     # initiate.read_files()
 
-    initiate = Algorytmy()
-    # initiate.show_areas()
-    # initiate.areas_compare() #---- you can specify which areas you wanna compare in wich year
-    # initiate.sales_changes() # --- change area by giving area name
-    initiate.because_why_not()
+    initiate = Algorithms()
+
+    areas = initiate.show_areas()
+    initiate.areas_compare([areas[4], areas[9]], '2014')  #---- you can specify which areas you wanna compare in wich year
+    initiate.sales_changes(areas[-11])  # --- change area by giving area name
+    initiate.because_why_not()  # --- try it out
 
